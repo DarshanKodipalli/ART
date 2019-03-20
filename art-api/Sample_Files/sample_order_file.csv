@@ -1,0 +1,12 @@
+GRANDHDR
+HDR,seller1@aeries.io
+1, Sugar,2,30
+2, Tea,2,80
+3, Coffee,6,220
+TRL
+HDR,seller1@aeries.io
+1, Maggi,4,128
+2, Knoor,5,98
+3, Haldirams,2,250
+TRL
+GRANDTRL,2

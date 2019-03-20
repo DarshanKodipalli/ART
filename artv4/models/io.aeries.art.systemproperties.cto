@@ -1,0 +1,20 @@
+namespace io.aeries.art.systemproperties
+
+import io.aeries.art.participant.*
+
+// Needs to implement
+
+// System Properties created by Buyer
+asset SystemProperties identified by sysID {
+  o String sysID
+  o String id optional // MongoDB ID
+  o Boolean checkerDependency optional
+  --> Banker banker optional
+}
+
+transaction UpsertSystemProperty { // Update/Save items to cart
+  o String sysID optional
+  o String id optional // MongoDB ID
+  o Boolean checkerDependency optional
+  --> Banker banker optional
+}

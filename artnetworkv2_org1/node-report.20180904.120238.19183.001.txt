@@ -1,0 +1,212 @@
+================================================================================
+==== Node Report ===============================================================
+
+Event: exception, location: "OnUncaughtException"
+Filename: node-report.20180904.120238.19183.001.txt
+Dump event time:  2018/09/04 12:02:38
+Module load time: 2018/09/04 12:02:35
+Process ID: 19183
+Command line: node /usr/bin/composer network ping -c admin@test 
+
+Node.js version: v8.11.3
+(http_parser: 2.8.0, v8: 6.2.414.54, uv: 1.19.1, zlib: 1.2.11, ares: 1.10.1-DEV,
+ modules: 57, nghttp2: 1.32.0, napi: 3, openssl: 1.0.2o, icu: 60.1, unicode: 10.0,
+ cldr: 32.0, tz: 2017c)
+
+node-report version: 2.2.1 (built against Node.js v8.11.3, glibc 2.23, 64 bit)
+
+OS version: Linux 4.4.0-131-generic #157-Ubuntu SMP Thu Jul 12 15:51:36 UTC 2018
+(glibc: 2.23)
+
+Machine: aeries x86_64
+
+================================================================================
+==== JavaScript Stack Trace ====================================================
+
+ChannelEventHub._checkConnection (/usr/lib/node_modules/composer-cli/node_modules/fabric-client/lib/ChannelEventHub.js:1:1)
+ChannelEventHub.registerChaincodeEvent (/usr/lib/node_modules/composer-cli/node_modules/fabric-client/lib/ChannelEventHub.js:1:1)
+HLFConnection._registerForChaincodeEvents (/usr/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:1:1)
+HLFConnection._checkCCListener (/usr/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:1:1)
+Timeout.ccListenerHandle.setTimeout [as _onTimeout] (/usr/lib/node_modules/composer-cli/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:1:1)
+ontimeout (timers.js:1:1)
+tryOnTimeout (timers.js:1:1)
+Timer.listOnTimeout (timers.js:1:1)
+
+================================================================================
+==== Native Stack Trace ========================================================
+
+ 0: [pc=0x7fed92d8b56b] nodereport::OnUncaughtException(v8::Isolate*) [/usr/lib/node_modules/composer-cli/node_modules/node-report/api.node]
+ 1: [pc=0xe78d02] v8::internal::Isolate::Throw(v8::internal::Object*, v8::internal::MessageLocation*) [node]
+ 2: [pc=0xff144d] v8::internal::Runtime_Throw(int, v8::internal::Object**, v8::internal::Isolate*) [node]
+ 3: [pc=0x1ecb688042fd] 
+
+================================================================================
+==== JavaScript Heap and Garbage Collector =====================================
+
+Heap space name: new_space
+    Memory size: 33,554,432 bytes, committed memory: 33,027,368 bytes
+    Capacity: 16,498,688 bytes, used: 15,134,744 bytes, available: 1,363,944 bytes
+Heap space name: old_space
+    Memory size: 41,742,336 bytes, committed memory: 41,689,872 bytes
+    Capacity: 40,769,584 bytes, used: 29,009,360 bytes, available: 11,760,224 bytes
+Heap space name: code_space
+    Memory size: 2,097,152 bytes, committed memory: 1,735,360 bytes
+    Capacity: 1,965,056 bytes, used: 1,612,704 bytes, available: 352,352 bytes
+Heap space name: map_space
+    Memory size: 4,214,784 bytes, committed memory: 4,151,328 bytes
+    Capacity: 4,136,448 bytes, used: 1,577,312 bytes, available: 2,559,136 bytes
+Heap space name: large_object_space
+    Memory size: 3,911,680 bytes, committed memory: 3,911,680 bytes
+    Capacity: 1,417,791,256 bytes, used: 3,856,664 bytes, available: 1,413,934,592 bytes
+
+Total heap memory size: 85,520,384 bytes
+Total heap committed memory: 84,515,608 bytes
+Total used heap memory: 51,190,784 bytes
+Total available heap memory: 1,429,970,248 bytes
+
+Heap memory limit: 1,501,560,832
+
+================================================================================
+==== Resource Usage ============================================================
+
+Process total resource usage:
+  User mode CPU: 2.224000 secs
+  Kernel mode CPU: 0.136000 secs
+  Average CPU Consumption : 59%
+  Maximum resident set size: 125,566,976 bytes
+  Page faults: 9 (I/O required) 43527 (no I/O required)
+  Filesystem activity: 3520 reads 40 writes
+
+Event loop thread resource usage:
+  User mode CPU: 1.772000 secs
+  Kernel mode CPU: 0.120000 secs
+  Average CPU Consumption : 47.3%
+  Filesystem activity: 3448 reads 16 writes
+
+================================================================================
+==== Node.js libuv Handle Summary ==============================================
+
+(Flags: R=Ref, A=Active)
+Flags  Type      Address             Details
+[-A]   async     0x00000000030230d0  
+[--]   check     0x00007fffaf2e9020  
+[R-]   idle      0x00007fffaf2e9098  
+[--]   prepare   0x00007fffaf2e9110  
+[--]   check     0x00007fffaf2e9188  
+[-A]   async     0x0000000002166740  
+[R-]   timer     0x0000000003093c10  repeat: 0, timeout expired: 148127178 ms ago
+[R-]   tty       0x00000000030ab408  width: 206, height: 60, file descriptor: 9, write queue size: 0, writable
+[-A]   signal    0x0000000003093d00  signum: 28 (SIGWINCH)
+[R-]   tty       0x0000000003093608  width: 206, height: 60, file descriptor: 11, write queue size: 0, writable
+[-A]   async     0x00007fed92f93cc0  
+[-A]   timer     0x00000000030940c0  repeat: 0, timeout in: 4645 ms
+[R-]   timer     0x000000000314dee0  repeat: 0, timeout expired: 92379138 ms ago
+[RA]   timer     0x000000000314df78  repeat: 0, timeout expired: 0 ms ago
+[-A]   async     0x00007fed90d79ec0  
+[RA]   prepare   0x00007fed90d79e00  
+[-A]   timer     0x000000000312fe50  repeat: 0, timeout in: 1662 ms
+[-A]   tcp       0x000000000311c940  localhost:40574 connected to localhost:7051, send buffer size: 2626560, recv buffer size: 1061808, file descriptor: 12, write queue size: 0, readable, writable
+[RA]   timer     0x00000000030e6980  repeat: 0, timeout in: 299877 ms
+[R-]   timer     0x0000000003183e90  repeat: 0, timeout expired: 9 ms ago
+[-A]   tcp       0x0000000003113c80  localhost:40578 connected to localhost:7051, send buffer size: 2626560, recv buffer size: 1061808, file descriptor: 13, write queue size: 0, readable, writable
+[-A]   tcp       0x0000000003102110  localhost:36972 connected to localhost:7053, send buffer size: 2626560, recv buffer size: 1061808, file descriptor: 14, write queue size: 0, readable, writable
+[-A]   timer     0x000000000311a490  repeat: 0, timeout in: 359899 ms
+[-A]   timer     0x0000000003101580  repeat: 0, timeout in: 359899 ms
+[-A]   timer     0x000000000317bed0  repeat: 0, timeout expired: 0 ms ago
+[-A]   timer     0x000000000311f950  repeat: 0, timeout in: 186 ms
+[-A]   timer     0x000000000314bc40  repeat: 0, timeout in: 3 ms
+
+================================================================================
+==== System Information ========================================================
+
+Environment variables
+  XDG_VTNR=7
+  XDG_SESSION_ID=c7
+  XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/cr7
+  CLUTTER_IM_MODULE=xim
+  SESSION=ubuntu
+  GPG_AGENT_INFO=/home/cr7/.gnupg/S.gpg-agent:0:1
+  VTE_VERSION=4205
+  XDG_MENU_PREFIX=gnome-
+  SHELL=/bin/bash
+  TERM=xterm-256color
+  QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
+  WINDOWID=90177616
+  GNOME_KEYRING_CONTROL=
+  UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1894
+  GTK_MODULES=gail:atk-bridge:unity-gtk-module
+  USER=cr7
+  QT_ACCESSIBILITY=1
+  LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+  XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+  XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+  DESKTOP_MODE=1
+  SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+  DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path
+  SESSION_MANAGER=local/aeries:@/tmp/.ICE-unix/2948,unix/aeries:/tmp/.ICE-unix/2948
+  XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg
+  DESKTOP_SESSION=ubuntu
+  PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  QT_QPA_PLATFORMTHEME=appmenu-qt5
+  QT_IM_MODULE=ibus
+  PWD=/home/cr7/Downloads/artnetworkv2_org1
+  JOB=dbus
+  XDG_SESSION_TYPE=x11
+  XMODIFIERS=@im=ibus
+  LANG=en_IN
+  GNOME_KEYRING_PID=
+  MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path
+  GDM_LANG=en_US
+  COMPIZ_CONFIG_PROFILE=ubuntu
+  IM_CONFIG_PHASE=1
+  GDMSESSION=ubuntu
+  GTK2_MODULES=overlay-scrollbar
+  SESSIONTYPE=gnome-session
+  SHLVL=2
+  HOME=/home/cr7
+  XDG_SEAT=seat0
+  LANGUAGE=en_IN:en
+  GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+  LOGNAME=cr7
+  XDG_SESSION_DESKTOP=ubuntu
+  DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-lxFU6kp9Bd
+  XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/var/lib/snapd/desktop
+  QT4_IM_MODULE=xim
+  LESSOPEN=| /usr/bin/lesspipe %s
+  INSTANCE=
+  DISPLAY=:0
+  XDG_RUNTIME_DIR=/run/user/1000
+  GTK_IM_MODULE=ibus
+  XDG_CURRENT_DESKTOP=Unity
+  LESSCLOSE=/usr/bin/lesspipe %s %s
+  XAUTHORITY=/home/cr7/.Xauthority
+  _=/usr/bin/composer
+  SUPPRESS_NO_CONFIG_WARNING=y
+  GRPC_SSL_CIPHER_SUITES=ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384
+
+Resource limits                        soft limit      hard limit
+  core file size (blocks)                       0       unlimited
+  data seg size (kbytes)                unlimited       unlimited
+  file size (blocks)                    unlimited       unlimited
+  max locked memory (bytes)                 65536           65536
+  max memory size (kbytes)              unlimited       unlimited
+  open files                              1048576         1048576
+  stack size (bytes)                      8388608       unlimited
+  cpu time (seconds)                    unlimited       unlimited
+  max user processes                        30689           30689
+  virtual memory (kbytes)               unlimited       unlimited
+
+Loaded libraries
+  /lib/x86_64-linux-gnu/libdl.so.2
+  /lib/x86_64-linux-gnu/librt.so.1
+  /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+  /lib/x86_64-linux-gnu/libm.so.6
+  /lib/x86_64-linux-gnu/libgcc_s.so.1
+  /lib/x86_64-linux-gnu/libpthread.so.0
+  /lib/x86_64-linux-gnu/libc.so.6
+  /lib64/ld-linux-x86-64.so.2
+  /usr/lib/node_modules/composer-cli/node_modules/node-report/api.node
+  /usr/lib/node_modules/composer-cli/node_modules/grpc/src/node/extension_binary/node-v57-linux-x64-glibc/grpc_node.node
+  /lib/x86_64-linux-gnu/libnss_files.so.2
+
+================================================================================

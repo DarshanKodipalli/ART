@@ -1,0 +1,30 @@
+{
+  "name": "test",
+  "version": "0.0.2",
+  "description": "test",
+  "scripts": {
+    "prepublish": "composer archive create --sourceType dir --sourceName . -a ./dist/test@0.0.2.bna",
+    "pretest": "npm run lint",
+    "lint": "eslint .",
+    "test": "nyc mocha -t 0 test/*.js && cucumber-js",
+    "start": "cd dist && composer archive create -t dir -n ../"
+  },
+  "author": "praveen",
+  "email": "praveen@aeries.io",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "^0.19.2",
+    "composer-cli": "^0.19.2",
+    "composer-client": "^0.19.2",
+    "composer-common": "^0.19.2",
+    "composer-connector-embedded": "^0.19.2",
+    "composer-cucumber-steps": "^0.19.2",
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "cucumber": "^2.2.0",
+    "eslint": "latest",
+    "nyc": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+}

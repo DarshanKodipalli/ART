@@ -1,0 +1,59 @@
+namespace io.aeries.art.payment
+
+import io.aeries.art.participant.*
+
+// Purchase Order created by Buyer
+asset Payment identified by paymentNumber {
+  o String paymentNumber
+  o String id optional // MongoDB ID
+  o String intent optional // banker-seller or buyer-banker
+  o String amount optional
+  o String invoiceNumber optional
+  o String orderNumber optional
+  o String utrNumber optional
+  o String paymentHash optional
+  o String created optional// date of created payment
+  o String cancelled optional// order cancelled date
+  o String cancelledmessage optional
+  o Integer statusCode  optional
+  o String statusMessage optional
+  o String sellerApproved optional // approval by seller or banker
+  o String bankerApproved optional
+  --> Buyer buyer optional
+  --> Seller seller optional // Seller is picked from predefined list
+  --> Banker banker optional // update this only on particular stage
+}
+
+transaction UpsertPayment { // Update/Save items to cart
+  o String paymentNumber optional
+  o String id optional // MongoDB ID
+  o String intent optional 
+  o String amount optional
+  o String invoiceNumber optional
+  o String orderNumber optional
+  o String utrNumber optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> Buyer buyer optional
+}
+
+transaction PaymentApproval { // PO Approval by seller
+  o String paymentNumber
+  o String buyerAmount optional
+  o String sellerAmount optional
+  o Boolean paymentStatus optional
+  o String paymentAmount optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> Buyer buyer optional
+}
+
+// part payments
+// payment rejection
+
+transaction RejectPaymentApproval { // PO Approval by seller
+  o String paymentNumber
+  --> Seller seller optional
+  --> Banker banker optional
+  --> Buyer buyer optional
+}

@@ -1,0 +1,114 @@
+namespace io.aeries.art.order
+
+import io.aeries.art.participant.*
+
+concept Item {
+  o Integer id optional
+  o String description optional
+  o Integer units optional
+  o Integer price optional
+}
+
+// Purchase Order created by Buyer
+asset Order identified by orderNumber {
+  o String orderNumber
+  o Integer amount optional
+  o Item[] items optional
+  o String orderHash optional
+  o String created optional// date of created order
+  o String updated optional// date of updated order cart
+  o String bought optional// date of submitted order with sellerdetails
+  o String cancelled optional// order cancelled date
+  o Integer statusCode  optional
+  o String statusMessage optional
+  o String approve optional // approval by seller/vendor
+  o String correction optional
+  o String message optional
+  --> Buyer buyer optional
+  --> Seller seller optional // Seller is picked from predefined list
+  --> Banker banker optional // update this only on particular stage
+}
+
+// Seller Invoice
+asset Invoice identified by invoiceNumber {
+  o String invoiceNumber
+  o String orderNumber optional
+  o Integer amount optional
+  o Item[] items optional
+  o String invoiceHash optional
+  o String created optional// date of created invoice
+  o String updated optional// date of updated invoice cart
+  o String bought optional// date of submitted invoice with sellerdetails
+  o String cancelled optional// invoice cancelled date
+  o Integer statusCode optional
+  o String statusMessage optional
+  o String approve optional // approval by seller/vendor
+  o String correction optional
+  o String message optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional // update this only on particular stage
+}
+
+transaction UpsertOrder { // Update/Save items to cart
+  o String orderNumber optional
+  o Item[] items optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction SubmitOrder { // Place Order - Submit cart items
+  o String orderNumber
+  o Item[] items optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction CancelOrder {
+  o String orderNumber
+}
+
+transaction POApproval { // PO Approval by seller
+  o String orderNumber
+}
+
+transaction POCorrection { // PO Correction by seller
+  o String orderNumber
+}
+
+transaction PODisapproval { // PO Disapproval by seller
+  o String orderNumber
+}
+
+transaction UpsertInvoice { // Update/Save items to cart
+  o String invoiceNumber optional
+  o String orderNumber optional
+  o Item[] items optional
+  o String invoiceHash optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction SubmitInvoice { // Place Order - Submit cart items
+  o String invoiceNumber
+  o String orderNumber
+  o Item[] items optional
+  o String invoiceHash optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction CancelInvoice {
+  o String invoiceNumber
+}
+
+transaction InvoiceApproval { // Invoice Approval by buyer
+  o String invoiceNumber
+}
+
+transaction InvoiceCorrection { // Invoice Correction by buyer
+  o String invoiceNumber
+  o String message
+}

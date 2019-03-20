@@ -1,0 +1,24 @@
+query selectCartOrders {
+  description: "Select all cart orders"
+  statement:
+      SELECT io.aeries.art.order.Order
+		  WHERE (statusCode <= 2)
+}
+
+query selectOrders {
+  description: "Select all orders"
+  statement:
+      SELECT io.aeries.art.order.Order
+}
+
+query selectInvoices {
+  description: "Select all invoices"
+  statement:
+      SELECT io.aeries.art.order.Order
+}
+
+query selectHistorianRecords {
+  description: "Select all historian records"
+  statement:
+      SELECT org.hyperledger.composer.system.HistorianRecord
+}

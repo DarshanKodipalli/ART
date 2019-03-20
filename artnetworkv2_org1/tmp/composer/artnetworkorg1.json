@@ -1,0 +1,63 @@
+{
+    "name": "artnetwork",
+    "x-type": "hlfv1",
+    "version": "1.0.0",
+	"client": {
+        "organization": "Org1",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300",
+                    "eventHub": "300",
+                    "eventReg": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "artchannel": {
+            "orderers": [
+                "orderer.aeries.io"
+            ],
+            "peers": {
+                "peer0.org1.aeries.io": {},
+                "peer1.org1.aeries.io": {}
+            }
+        }
+    },
+    "organizations": {
+        "Org1": {
+            "mspid": "Org1MSP",
+            "peers": [
+                "peer0.org1.aeries.io",
+                "peer1.org1.aeries.io"
+            ],
+            "certificateAuthorities": [
+                "ca.org1.aeries.io"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.aeries.io": {
+            "url": "grpc://localhost:7050"
+        }
+    },
+    "peers": {
+        "peer0.org1.aeries.io": {
+            "url": "grpc://localhost:7051",
+            "eventUrl": "grpc://localhost:7052"
+        },
+        "peer1.org1.aeries.io": {
+            "url": "grpc://localhost:7053",
+            "eventUrl": "grpc://localhost:7054"
+        }
+    },
+    "certificateAuthorities": {
+        "ca.org1.aeries.io": {
+            "url": "http://localhost:7071",
+            "caName": "ca.org1.aeries.io"
+        }
+    }
+}
+

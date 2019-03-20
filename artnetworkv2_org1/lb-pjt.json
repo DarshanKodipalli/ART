@@ -1,0 +1,26 @@
+{
+  "ids": {
+    "Card": 1,
+    "userCredential": 1,
+    "userIdentity": 1,
+    "user": 2,
+    "accessToken": 2,
+    "ACL": 1,
+    "RoleMapping": 1,
+    "Role": 1
+  },
+  "models": {
+    "Card": {},
+    "userCredential": {},
+    "userIdentity": {},
+    "user": {
+      "1": "{\"username\":\"praveen\",\"password\":\"$2a$10$BQ3651pPUxrnWIm9aZdj9uvUcjtqdIf8SVG6rBjf0Uxu8EgrfWQau\",\"email\":\"praveen@aeries.io\",\"id\":1}"
+    },
+    "accessToken": {
+      "wAgB1GQD9iy47Ybv3C1N1OekE2SM93TJ5MJ3fkx5gJXxb3c4aQf09dHp2vuohcw8": "{\"id\":\"wAgB1GQD9iy47Ybv3C1N1OekE2SM93TJ5MJ3fkx5gJXxb3c4aQf09dHp2vuohcw8\",\"ttl\":1209600,\"created\":\"2018-08-13T06:45:00.238Z\",\"userId\":1}"
+    },
+    "ACL": {},
+    "RoleMapping": {},
+    "Role": {}
+  }
+}

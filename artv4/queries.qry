@@ -1,0 +1,161 @@
+query selectCartOrders {
+  description: "Select all cart orders"
+  statement:
+      SELECT io.aeries.art.order.Order
+		  WHERE (statusCode <= 2)
+}
+
+query selectSubmittedOrders {
+  description: "Select all submitted cart orders"
+  statement:
+      SELECT io.aeries.art.order.Order
+		  WHERE (statusCode == 3)
+}
+
+query selectBuyers {
+  description: "Select Buyer data"
+  statement: 
+      SELECT io.aeries.art.participant.Buyer
+}
+
+query selectSellers{
+  description: "Select Seller data"
+  statement: 
+      SELECT io.aeries.art.participant.Seller
+}
+
+query selectBankers{
+  description: "Select Banker data"
+  statement: 
+      SELECT io.aeries.art.participant.Banker
+}
+
+query selectOrders {
+  description: "Select all orders"
+  statement:
+      SELECT io.aeries.art.order.Order
+}
+
+query selectCartInvoices {
+  description: "Select all cart invoices"
+  statement:
+      SELECT io.aeries.art.order.Invoice
+		  WHERE (statusCode <= 102)
+}
+
+query selectSubmittedInvoices {
+  description: "Select all submitted invoices"
+  statement:
+      SELECT io.aeries.art.order.Invoice
+		  WHERE (statusCode == 103)
+}
+
+query selectInvoices {
+  description: "Select all invoices"
+  statement:
+      SELECT io.aeries.art.order.Invoice
+}
+
+query selectPayments {
+  description: "Select all payments"
+  statement:
+      SELECT io.aeries.art.payment.Payment
+}
+
+query selectOrdersById{
+  description: "Select Orders by ID"
+  statement:
+      SELECT io.aeries.art.order.Order
+      WHERE (_$id == id)
+}
+
+query selectInvoicesById{
+  description: "Select Invoices by ID"
+  statement:
+      SELECT io.aeries.art.order.Invoice
+      WHERE (_$id == id)
+}
+
+query selectPaymentsById{
+  description: "Select Payments by ID"
+  statement:
+      SELECT io.aeries.art.payment.Payment
+      WHERE (_$id == id)
+}
+
+query selectHistorianRecords {
+  description: "Select all historian records"
+  statement:
+      SELECT org.hyperledger.composer.system.HistorianRecord
+}
+
+query selectAssetInUpsertOrderByTransactionId {
+  description: "Select UpserOrder by ID"
+  statement:
+      SELECT io.aeries.art.order.UpsertOrder
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInSubmitOrderByTransactionId {
+  description: "Select SubmitOrder by ID"
+  statement:
+      SELECT io.aeries.art.order.SubmitOrder
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInPOApprovalByTransactionId {
+  description: "Select POApproval by ID"
+  statement:
+      SELECT io.aeries.art.order.POApproval
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInUpsertInvoiceByTransactionId {
+  description: "Select UpsertInvoice by ID"
+  statement:
+      SELECT io.aeries.art.order.UpsertInvoice
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInSubmitInvoiceByTransactionId {
+  description: "Select SubmitInvoice by ID"
+  statement:
+      SELECT io.aeries.art.order.SubmitInvoice
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInInvoiceApprovalByTransactionId {
+  description: "Select InvoiceApproval by ID"
+  statement:
+      SELECT io.aeries.art.order.InvoiceApproval
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInUpsertPaymentByTransactionId {
+  description: "Select UpsertPayment by ID"
+  statement:
+      SELECT io.aeries.art.payment.UpsertPayment
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectAssetInPaymentApprovalByTransactionId {
+  description: "Select PaymentApproval by ID"
+  statement:
+      SELECT io.aeries.art.payment.PaymentApproval
+      WHERE (_$transactionId == transactionId)
+}
+
+query selectKycById {
+  description: "Select Kyc by ID"
+  statement:
+      SELECT io.aeries.art.participant.Kyc
+      WHERE (_$id == id)
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,927 @@
+/**
+ * ART access control list.
+ */
+
+/*
+ * Historian ACL's
+ */
+rule historianAccess{
+  description: "Only allow members to read historian records referencing transactions they submitted."
+  participant(p): "io.aeries.art.participant.*"
+  operation: READ
+  resource(r): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (r.participantInvoking.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+}
+
+rule historianHide{
+  description: "Hides rest of the Historian Records"
+  participant: "io.aeries.art.participant.*"
+  operation: READ
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: DENY
+}
+
+/*
+ * Remove Access to NetworkAdmin on resources
+ */
+
+ // Important to remove access to NetworkAdmin on resources and give control to Admin, changeAdmin
+
+/*
+ *  Resource View ACL's
+ */
+
+// Auditor 
+rule AuditorCanViewParticpantTransaction {
+    description: "Auditor can view their participant transactions"
+    participant: "io.aeries.art.participant.Auditor"
+    operation: READ
+    resource: "io.aeries.art.**"
+    action: ALLOW
+}
+
+// Buyer Upsertparticipant
+rule BuyerCanViewTheirParticpantTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.participant.UpsertBuyer"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerCanViewTheirParticpantTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.participant.UpsertSeller"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerCanViewTheirBuyerParticpantTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.participant.UpsertBuyer"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerCanViewTheirSellerParticpantTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.participant.UpsertSeller"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// view kyc
+rule SellerCanViewTheirKycTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.participant.Kyc"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerCanViewTheirKycTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.participant.Kyc"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerCanViewTheirKycTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.participant.Kyc"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+// upsert SellerUpsertKyc
+rule SellerCanViewTheirUpsertKycTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.participant.UpsertKyc"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerCanViewTheirSellerUpsertKycTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.participant.UpsertKyc"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// Approve Buyer
+rule BuyerCanViewTheirApproveProfileTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.participant.ApproveBuyer"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerCanViewTheirBuyerApproveProfileTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.participant.ApproveBuyer"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// Approve Seller
+
+rule SellerCanViewTheirApproveProfileTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.participant.ApproveSeller"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerCanViewTheirSellerApproveProfileTransaction {
+    description: "Owners can view their participant transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.participant.ApproveSeller"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirOrderResource
+rule BuyerCanViewTheirOrderResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.Order"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirOrderResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.Order"
+    condition: (p.getIdentifier() == r.seller.getIdentifier() && r.statusCode >= 3)
+    action: ALLOW
+}
+
+rule SellerCheckerBuyerCanViewTheirOrderResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.SellerChecker"
+    operation: READ
+    resource(r): "io.aeries.art.order.Order"
+    condition: (p.getIdentifier() == r.sellerChecker.getIdentifier() && r.statusCode >= 3)
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirOrderResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.Order"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+
+// BuyerCanViewTheirInvoiceResource
+rule BuyerCanViewTheirInvoiceResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.Invoice"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirInvoiceResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.Invoice"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerCheckerSellerBuyerCanViewTheirInvoiceResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.SellerChecker"
+    operation: READ
+    resource(r): "io.aeries.art.order.Invoice"
+    condition: (p.getIdentifier() == r.sellerChecker.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirInvoiceResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.Invoice"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirUpsertTransaction
+rule BuyerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.UpsertOrder"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.UpsertOrder"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.UpsertOrder"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirSubmitTransaction
+rule BuyerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.SubmitOrder"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.SubmitOrder"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+
+rule BankerBuyerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.SubmitOrder"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+//BuyerCanViewTheirCancelTransaction
+rule BuyerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.CancelOrder"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.CancelOrder"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.CancelOrder"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirInvoiceApprovalTransaction
+rule BuyerCanViewTheirInvoiceApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.InvoiceApproval"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirInvoiceApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.InvoiceApproval"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirInvoiceApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.InvoiceApproval"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirAcceptInvoiceProposalTransaction
+rule BuyerCanViewTheirAcceptInvoiceProposalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.AcceptInvoiceProposal"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirAcceptInvoiceProposalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.AcceptInvoiceProposal"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirAcceptInvoiceProposalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.AcceptInvoiceProposal"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirInvoiceProposalTransaction
+rule BuyerCanViewTheirInvoiceProposalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.InvoiceProposal"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirInvoiceProposalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.InvoiceProposal"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirInvoiceProposalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.InvoiceProposal"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// BuyerCanViewTheirInvoiceRejectionTransaction
+rule BuyerCanViewTheirInvoiceRejectionTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.RejectInvoiceProposal"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirInvoiceRejectionTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.RejectInvoiceProposal"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirInvoiceRejectionTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.RejectInvoiceProposal"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+
+//  BuyerCanViewTheirPayments
+rule BuyerCanViewTheirPayments {
+    description: "Owners can view their payments"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.payment.Payment"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule SellerBuyerCanViewTheirPayments {
+    description: "Owners can view their payments"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.payment.Payment"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerBuyerCanViewTheirPayments {
+    description: "Owners can view their payments"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.payment.Payment"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+//BuyerCanViewTheirUpsertPaymentTransaction
+rule BuyerCanViewTheirUpsertPaymentTransaction {
+    description: "Owners can view their upsert payment transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.payment.UpsertPayment"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+/*
+rule SellerBuyerCanViewTheirUpsertPaymentTransaction {
+    description: "Owners can view their upsert payment transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.payment.UpsertPayment"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+*/
+
+rule BankerBuyerCanViewTheirUpsertPaymentTransaction {
+    description: "Owners can view their upsert payment transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.payment.UpsertPayment"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// Seller
+
+// SellerCanViewTheirUpsertTransaction
+rule SellerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.UpsertInvoice"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerSellerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.UpsertInvoice"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerSellerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.UpsertInvoice"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// SellerCanViewTheirSubmitTransaction
+rule SellerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.SubmitInvoice"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerSellerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.SubmitInvoice"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerSellerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.SubmitInvoice"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// SellerCanViewTheirCancelTransaction
+rule SellerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.CancelInvoice"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerSellerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.CancelInvoice"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerSellerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.CancelInvoice"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+//SellerCanViewTheirPOApprovalTransaction
+rule SellerCanViewTheirPOApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.POApproval"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerSellerCanViewTheirPOApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.POApproval"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerSellerCanViewTheirPOApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.order.POApproval"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// SellerCanViewTheirPaymentTransaction
+rule SellerCanViewTheirPaymentTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.payment.PaymentApproval"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+rule BankerSellerCanViewTheirPaymentTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.payment.PaymentApproval"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+// Banker
+
+// BankerCanViewTheirPaymentTransaction
+rule BankerCanViewTheirPaymentTransaction {
+    description: "Owners can view their approve payment transactions"
+    participant(p): "io.aeries.art.participant.Banker"
+    operation: READ
+    resource(r): "io.aeries.art.payment.PaymentApproval"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerBankerCanViewTheirPaymentTransaction {
+    description: "Owners can view their approve payment transactions"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.payment.PaymentApproval"
+    condition: (p.getIdentifier() == r.banker.getIdentifier())
+    action: ALLOW
+}
+/*
+rule SellerBankerCanViewTheirPaymentTransaction {
+    description: "Owners can view their approve payment transactions"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.payment.PaymentApproval"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+*/
+// can banker view all the transactions of seller and buyer ?
+
+// Banker pays to Seller and banker can look at the payments
+
+// Buyer pays to Banker
+
+/*
+ *  Transaction Permissions
+ */
+
+rule BuyerUpsertParticpant {
+    description: "Allow Buyer to update the data"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.participant.*"
+    transaction: "io.aeries.art.participant.UpsertBuyer"
+    action: ALLOW
+}
+
+rule BuyerUpsertTransaction {
+    description: "Allow Buyer submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.UpsertOrder"
+    action: ALLOW
+}
+
+rule BuyerPurchaseTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.SubmitOrder"
+    action: ALLOW
+}
+
+rule BuyerCancelTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.CancelOrder"
+    action: ALLOW
+}
+
+rule BuyerInvoiceApprovalTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.InvoiceApproval"
+    action: ALLOW
+}
+
+rule BuyerInvoiceRejectionTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.RejectInvoiceProposal"
+    action: ALLOW
+}
+
+rule BuyerInvoiceProposalTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.InvoiceProposal"
+    action: ALLOW
+}
+
+rule BuyerUpsertPaymentTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.payment.*"
+    transaction: "io.aeries.art.payment.UpsertPayment"
+    action: ALLOW
+}
+
+rule BuyerUpsertPaymentInvoiceTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.Invoice"
+    transaction: "io.aeries.art.payment.UpsertPayment"
+    action: ALLOW
+}
+
+rule SellerUpsertTransaction {
+    description: "Allow Buyer submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.UpsertInvoice"
+    action: ALLOW
+}
+
+rule SellerUpsertParticpant {
+    description: "Allow Buyer to update the data"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.participant.*"
+    transaction: "io.aeries.art.participant.UpsertSeller"
+    action: ALLOW
+}
+
+rule SellerUpsertKyc {
+    description: "Allow Buyer to update the data"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.participant.*"
+    transaction: "io.aeries.art.participant.UpsertKyc"
+    action: ALLOW
+}
+
+rule SellerPurchaseTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.SubmitInvoice"
+    action: ALLOW
+}
+
+rule SellerCancelTransaction {
+    description: "Allow Seller to cancel transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.CancelInvoice"
+    action: ALLOW
+}
+
+rule SellerPOApprovalTransaction {
+    description: "Allow Seller to submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.POApproval"
+    action: ALLOW
+}
+
+rule SellerInvoiceProposalTransaction {
+    description: "Allow Seller to submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.InvoiceProposal"
+    action: ALLOW
+}
+
+rule SellerPaymentApprovalTransaction {
+    description: "Allow Seller to submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.**"
+    transaction: "io.aeries.art.payment.PaymentApproval"
+    action: ALLOW
+}
+
+rule SellerPaymentApprovalInvoiceAssetTransaction {
+    description: "Allow Seller to access Invoice transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.payment.PaymentApproval"
+    action: ALLOW
+}
+
+rule BankerApproveBuyer {
+    description: "Allow Banker to approve buyer"
+    participant: "io.aeries.art.participant.Banker"
+    operation: ALL
+    resource: "io.aeries.art.participant.*"
+    transaction: "io.aeries.art.participant.ApproveBuyer"
+    action: ALLOW
+}
+
+rule SellerCheckerInvoiceApprovalTransaction {
+    description: "Allow Seller to submit transactions"
+    participant: "io.aeries.art.participant.SellerChecker"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.InvoiceApprovalChecker"
+    action: ALLOW
+}
+
+rule BankerApproveSeller {
+    description: "Allow Banker to approve seller"
+    participant: "io.aeries.art.participant.Banker"
+    operation: ALL
+    resource: "io.aeries.art.participant.*"
+    transaction: "io.aeries.art.participant.ApproveSeller"
+    action: ALLOW
+}
+
+rule BankerUpsertPaymentTransaction {
+    description: "Allow Banker to submit transactions"
+    participant: "io.aeries.art.participant.Banker"
+    operation: ALL
+    resource: "io.aeries.art.payment.*"
+    transaction: "io.aeries.art.payment.UpsertPayment"
+    action: ALLOW
+}
+
+rule BankerPaymentApprovalTransaction {
+    description: "Allow Banker to submit transactions"
+    participant: "io.aeries.art.participant.Banker"
+    operation: ALL
+    resource: "io.aeries.art.**"
+    transaction: "io.aeries.art.payment.PaymentApproval"
+    action: ALLOW
+}
+
+rule BankerAcceptInvoiceApprovalTransaction {
+    description: "Allow Banker to submit transactions"
+    participant: "io.aeries.art.participant.Banker"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.AcceptInvoiceProposal"
+    action: ALLOW
+}
+
+/*
+ * All Participants
+ */
+
+rule AllParticipantsCanViewTheirData {
+    description: "Allow all participants to view their data"
+    participant(p): "io.aeries.art.participant.*"
+    operation: READ
+    resource(r): "io.aeries.art.participant.*"
+    condition: (p.getIdentifier() == r.getIdentifier())
+    action: ALLOW
+}
+
+/*
+ * System level ACL's
+ */
+
+// Write network permissions to deny Network Admin on art resources
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

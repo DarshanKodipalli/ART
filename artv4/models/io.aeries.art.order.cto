@@ -1,0 +1,233 @@
+namespace io.aeries.art.order
+
+import io.aeries.art.participant.*
+
+concept Item {
+  o Integer id optional
+  o String description optional
+  o Integer units optional
+  o Integer price optional
+}
+
+// Purchase Order created by Buyer
+asset Order identified by orderNumber {
+  o String orderNumber
+  o String id optional // MongoDB ID
+  o String amount optional
+  o Item[] items optional
+  o String orderHash optional
+  o String created optional// date of created order
+  o String updated optional// date of updated order cart
+  o String bought optional// date of submitted order with sellerdetails
+  o String cancelled optional// order cancelled date
+  o Integer statusCode  optional
+  o String statusMessage optional
+  o String approved optional // approval by seller/vendor
+  o String approvedChecker optional
+  o String cancelOrderReason optional
+  o String rejectApprovalReason optional
+  o String dueDate optional // Money to be payed
+  // o String deliveryTerms optional --> 48hrs from PO acceptance
+  --> Buyer buyer optional
+  --> Seller seller optional // Seller is picked from predefined list
+  --> Banker banker optional // update this only on particular stage
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction UpsertOrder { // Update/Save items to cart
+  o String orderNumber optional
+  o Boolean checkerDependency optional
+  o String id optional // MongoDB ID
+  o Item[] items optional
+  o String dueDate optional
+  o String amount optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction SubmitOrder { // Place Order - Submit cart items
+  o String orderNumber
+  o Boolean checkerDependency optional
+  o String id optional // MongoDB ID
+  o Item[] items optional
+  o String dueDate optional
+  o String amount optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction CancelOrder {
+  o String orderNumber
+  o Boolean checkerDependency optional
+  o String cancelOrderReason optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction RejectPOApproval { // PO Approval by seller
+  o String orderNumber
+  o Boolean checkerDependency optional
+  o String rejectOrderReason optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction POApproval { // PO Approval by seller
+  o String orderNumber
+  o Boolean checkerDependency optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+// Seller Invoice
+asset Invoice identified by invoiceNumber {
+  o String invoiceNumber
+  o String id optional // MOngoDB ID
+  o String orderNumber optional
+  o String amount optional
+  o String invoiceHash optional
+  o String invoiceDescription optional
+  o String created optional// date of created invoice
+  o String updated optional// date of updated invoice cart
+  o String bought optional// date of submitted invoice with sellerdetails
+  o String cancelled optional// invoice cancelled date
+  o Integer statusCode optional
+  o String statusMessage optional
+  o String approved optional // approval by seller/vendor
+  o String approvedChecker optional
+  o String proposed optional // proposal to banker by seller or buyer
+  o String acceptProposal optional
+  o String rejectProposal optional
+  o String rejectProposalReason optional
+  o String cancelInvoiceReason optional // cancel reason
+  o String rejectApprovalReason optional
+  o Boolean sellerPaymentStatus default=false // payments from banker to seller
+  o String bankerAmountPaidToSeller optional
+  o Boolean bankerPaymentStatus default=false // payments from buyer to banker
+  o String buyerAmountPaidToBanker optional
+  o String dueDate optional // Money to be payed
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional // update this only on particular stage
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction UpsertInvoice { // Update/Save items to cart
+  o Boolean checkerDependency optional
+  o String invoiceNumber optional
+  o String orderNumber optional
+  o String id optional // MongoDB ID
+  o String invoiceDescription optional
+  o String dueDate optional
+  o String amount optional
+  o String invoiceHash optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction SubmitInvoice { // Place Order - Submit cart items
+  o Boolean checkerDependency optional
+  o String invoiceNumber
+  o String orderNumber optional
+  o String id optional // MongoDB ID
+  o String invoiceDescription optional
+  o String dueDate optional
+  o String amount optional
+  o String invoiceHash optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction CancelInvoice {
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  o String cancelInvoiceReason optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction RejectInvoiceApproval { // Invoice Approval by buyer
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  o String rejectInvoiceReason optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction InvoiceApprovalChecker { // Invoice Approval by seller after submit
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction InvoiceApproval { // Invoice Approval by buyer
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction InvoiceProposal { // Invoice Proposal by buyer or seller
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction AcceptInvoiceProposal { // Invoice Proposal by buyer or seller
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}
+
+transaction RejectInvoiceProposal { // Invoice Proposal by buyer or seller
+  o String invoiceNumber
+  o Boolean checkerDependency optional
+  o String rejectProposalReason
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+  --> BuyerChecker buyerChecker optional
+  --> SellerChecker sellerChecker optional
+}

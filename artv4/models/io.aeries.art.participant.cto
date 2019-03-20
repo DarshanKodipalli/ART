@@ -1,0 +1,147 @@
+namespace io.aeries.art.participant
+
+abstract participant Member {
+  o String firstName optional
+  o String middleName optional
+  o String lastName optional
+  o String companyName optional
+  o String companyTicker optional
+  o String position optional
+  o String cinNumber optional
+  o String companyType optional
+  o String addressLine1 optional
+  o String addressLine2 optional
+  o String addressLine3 optional
+  o Boolean emailVerification default=false
+  o Boolean verifiedUser default=false // admin/banker verification
+  o String maxlimit optional
+}
+
+participant Buyer identified by buyerID extends Member{
+  o String buyerID // unique username in email format based on discussion.
+}
+
+participant Seller identified by sellerID extends Member{
+  o String sellerID
+}
+
+participant BuyerChecker identified by buyerCheckerID extends Member{
+  o String buyerCheckerID // unique username in email format based on discussion.
+}
+
+participant SellerChecker identified by sellerCheckerID extends Member{
+  o String sellerCheckerID
+}
+
+participant Auditor identified by auditorID extends Member{
+  o String auditorID
+}
+
+participant Banker identified by bankerID extends Member{ // api is not exposed also only created by AeriesPersonnel admin user card
+  o String bankerID
+}
+
+participant AeriesPersonnel identified by aeriespersonnelID extends Member{ // For now hardcode to only admin person of AeriesPersonnel
+  o String aeriespersonnelID
+}
+
+transaction UpsertBuyer { // Update/Save items to cart
+  o String firstName optional
+  o String middleName optional
+  o String lastName optional
+  o String companyName optional
+  o String companyTicker optional
+  o String cinNumber optional
+  o String position optional
+  o String companyType optional
+  o String addressLine1 optional
+  o String addressLine2 optional
+  o String addressLine3 optional
+  --> Buyer buyer optional
+  --> Banker banker optional
+}
+
+transaction UpsertSeller { // Update/Save items to cart
+  o String firstName optional
+  o String middleName optional
+  o String lastName optional
+  o String companyName optional
+  o String companyTicker optional
+  o String cinNumber optional
+  o String position optional
+  o String companyType optional
+  o String addressLine1 optional
+  o String addressLine2 optional
+  o String addressLine3 optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction ApproveBuyer { // Update/Save items to cart
+  o String maxlimit optional
+  --> BuyerChecker buyerchecker optional
+  --> Buyer buyer optional
+  --> Banker banker optional
+}
+
+transaction ApproveSeller { // Update/Save items to cart
+  o String maxlimit optional
+  --> SellerChecker sellerchecker optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction ApproveBuyerChecker { // Update/Save items to cart
+  o String maxlimit optional
+  --> BuyerChecker buyerchecker optional
+  --> Banker banker optional
+}
+
+transaction ApproveSellerChecker { // Update/Save items to cart
+  o String maxlimit optional
+  --> SellerChecker sellerchecker optional
+  --> Banker banker optional
+}
+
+// currently used by seller
+asset Kyc identified by kycID {
+  o String kycID
+  o String id optional // MongoDB ID
+  o String aadhaarCardNumber optional
+  o String panCardNumber optional
+  o String cinNumber optional
+  o String document1Hash optional
+  o String document2Hash optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+// Split Upserting KYC details
+
+transaction UpsertKyc { // Update/Save items to cart
+  o String kycID optional
+  o String id optional // MongoDB ID
+  o String aadhaarCardNumber optional
+  o String panCardNumber optional
+  o String cinNumber optional
+  o String document1Hash optional
+  o String document2Hash optional
+  --> Buyer buyer optional
+  --> Seller seller optional
+  --> Banker banker optional
+}
+
+transaction AddSellerList { // Update/Save items to cart
+  o String buyerID optional
+  o String id optional // MongoDB ID
+  --> Buyer buyer optional
+  --> Banker banker optional
+}
+
+transaction RemoveSellerList { // Update/Save items to cart
+  o String buyerID optional
+  o String id optional // MongoDB ID
+  --> Buyer buyer optional
+  --> Banker banker optional
+}

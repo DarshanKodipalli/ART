@@ -1,0 +1,17 @@
+GRANDHDR
+HDR,seller1@aeries.io
+1, Bed,5,2500
+2, Cot,4,25000
+3, Pillows,6,1000
+TRL
+HDR,seller1@aeries.io
+1, Cerelac,4,880
+2, Milk,5,100
+3, Corn Flakes,2,480
+TRL
+HDR,seller1@aeries.io
+1, Dove,4,120
+2, Surf Excel,8,880
+3, Aerial,4,1000
+TRL
+GRANDTRL,3
