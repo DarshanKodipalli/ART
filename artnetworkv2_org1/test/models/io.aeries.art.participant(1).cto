@@ -1,0 +1,28 @@
+namespace io.aeries.art.participant
+
+abstract participant Member {
+  o String companyName
+  o String companyTicker // allow only 4 characters
+  o Boolean emailVerification default=false
+  o Boolean verified default=false // admin verification
+  o String proofs default=""
+  o String Address optional
+}
+
+participant Buyer identified by buyerID extends Member{
+  o String buyerID // unique username in email format based on discussion.
+  o Seller[] sellers optional
+}
+
+participant Seller identified by sellerID extends Member{
+  o String sellerID
+  o Buyer[] buyers optional
+}
+
+participant Banker identified by bankerID extends Member{ // api is not exposed also only created by AeriesPersonnel
+  o String bankerID
+}
+
+participant AeriesPersonnel identified by aeriespersonnelID extends Member{ // For now hardcode to only admin person of AeriesPersonnel
+  o String aeriespersonnelID
+}

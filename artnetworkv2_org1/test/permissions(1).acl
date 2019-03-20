@@ -1,0 +1,229 @@
+/**
+ * ART access control list.
+ */
+
+/*
+ * Historian ACL's
+ */
+rule historianAccess{
+  description: "Only allow members to read historian records referencing transactions they submitted."
+  participant(p): "io.aeries.art.participant.*"
+  operation: READ
+  resource(r): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (r.participantInvoking.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+}
+
+rule historianHide{
+  description: "Hides rest of the Historian Records"
+  participant: "io.aeries.art.participant.*"
+  operation: READ
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: DENY
+}
+
+/*
+ *  Resource View ACL's
+ */
+
+rule BuyerCanViewTheirResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource(r): "io.aeries.art.order.Order"
+    condition: (p.getIdentifier() == r.buyer.getIdentifier())
+    action: ALLOW
+}
+
+rule BuyerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource: "io.aeries.art.order.UpsertOrder"
+    action: ALLOW
+}
+
+rule BuyerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource: "io.aeries.art.order.SubmitOrder"
+    action: ALLOW
+}
+
+rule BuyerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource: "io.aeries.art.order.CancelOrder"
+    action: ALLOW
+}
+
+rule BuyerCanViewTheirInvoiceApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: READ
+    resource: "io.aeries.art.order.InvoiceApproval"
+    action: ALLOW
+}
+
+rule SellerCanViewTheirResource {
+    description: "Owners can view their view data"
+    participant(p): "io.aeries.art.participant.Seller"
+    operation: READ
+    resource(r): "io.aeries.art.order.Order"
+    condition: (p.getIdentifier() == r.seller.getIdentifier())
+    action: ALLOW
+}
+
+
+rule SellerCanViewTheirUpsertTransaction {
+    description: "Owners can view their submitted transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: READ
+    resource: "io.aeries.art.order.UpsertInvoice"
+    action: ALLOW
+}
+
+rule SellerCanViewTheirSubmitTransaction {
+    description: "Owners can view their submitted transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: READ
+    resource: "io.aeries.art.order.SubmitInvoice"
+    action: ALLOW
+}
+
+rule SellerCanViewTheirCancelTransaction {
+    description: "Owners can view their submitted transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: READ
+    resource: "io.aeries.art.order.CancelInvoice"
+    action: ALLOW
+}
+
+rule SellerCanViewTheirInvoiceApprovalTransaction {
+    description: "Owners can view their Approved Invoice transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: READ
+    resource: "io.aeries.art.order.POApproval"
+    action: ALLOW
+}
+
+/*
+ *  Transaction Permissions
+ */
+
+rule BuyerUpsertTransaction {
+    description: "Allow Buyer submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.UpsertOrder"
+    action: ALLOW
+}
+
+rule BuyerPurchaseTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.SubmitOrder"
+    action: ALLOW
+}
+
+rule BuyerCancelTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.CancelOrder"
+    action: ALLOW
+}
+
+rule BuyerInvoiceApprovalTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Buyer"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.InvoiceApproval"
+    action: ALLOW
+}
+
+rule SellerUpsertTransaction {
+    description: "Allow Buyer submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.UpsertInvoice"
+    action: ALLOW
+}
+
+rule SellerPurchaseTransaction {
+    description: "Allow Buyer to submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.SubmitInvoice"
+    action: ALLOW
+}
+
+rule SellerCancelTransaction {
+    description: "Allow Seller to cancel transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.CancelInvoice"
+    action: ALLOW
+}
+
+rule SellerInvoiceApprovalTransaction {
+    description: "Allow Seller to submit transactions"
+    participant: "io.aeries.art.participant.Seller"
+    operation: ALL
+    resource: "io.aeries.art.order.*"
+    transaction: "io.aeries.art.order.POApproval"
+    action: ALLOW
+}
+
+/*
+ * All Participants
+ */
+
+rule AllParticipantsCanViewTheirData {
+    description: "Allow all participants to view their data"
+    participant(p): "io.aeries.art.participant.*"
+    operation: READ
+    resource(r): "io.aeries.art.participant.*"
+    condition: (p.getIdentifier() == r.getIdentifier())
+    action: ALLOW
+}
+
+/*
+ * System level ACL's
+ */
+
+// Write network permissions to deny Network Admin on art resources
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

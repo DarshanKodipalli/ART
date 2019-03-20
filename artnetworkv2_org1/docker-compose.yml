@@ -61,6 +61,35 @@ services:
       - orderer.aeries.io
       - couchdborg1peer0
 
+  peer1.org1.aeries.io:
+    container_name: peer1.org1.aeries.io
+    image: hyperledger/fabric-peer:x86_64-1.1.0
+    environment:
+      - CORE_LOGGING_LEVEL=debug
+      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_PEER_ID=peer1.org1.aeries.io
+      - CORE_PEER_ADDRESS=peer1.org1.aeries.io:7051
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artnetworkv2_org1_default
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/msp
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdborg1peer1:5984
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    ports:
+      - 7053:7051
+      - 7054:7053
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./channel:/opt/gopath/src/github.com/hyperledger/fabric
+        - ./:/etc/hyperledger/configtx
+        - ./crypto-config/peerOrganizations/org1.aeries.io/peers/peer1.org1.aeries.io/msp:/etc/hyperledger/peer/msp
+        - ./crypto-config/peerOrganizations/org1.aeries.io/users:/etc/hyperledger/msp/users
+    depends_on:
+      - orderer.aeries.io
+      - couchdborg1peer1
+
   couchdborg1peer0:
     container_name: couchdborg1peer0
     image: hyperledger/fabric-couchdb:x86_64-0.4.6
@@ -68,3 +97,11 @@ services:
       - 5984:5984
     environment:
       DB_URL: http://localhost:5984/member_db
+
+  couchdborg1peer1:
+    container_name: couchdborg1peer1
+    image: hyperledger/fabric-couchdb:x86_64-0.4.6
+    ports:
+      - 5985:5984
+    environment:
+      DB_URL: http://localhost:5985/member_db
