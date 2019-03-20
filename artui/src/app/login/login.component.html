@@ -1,0 +1,66 @@
+<div class="background"></div>
+
+<div class="center-me">
+    <mat-drawer-container class="example-container">
+        <mat-drawer mode="side" opened>
+            <div class="logo"><img src="assets/img/supplychain_logo.png"/></div>
+            <div style="padding:6px;">
+                <b>ART</b> is a Hyperledger-based platform which provides trust within the supply chain network in order to tackle the issues
+                of fraud, theft and tracking of goods. Every time a product changes hands, the transaction is documented, creating a permanent history
+                of the product transaction, from origin to destination, manufacture to sale.
+              </div>
+        </mat-drawer>
+        <mat-drawer-content>
+            <mat-tab-group class="tabs" #wizard>
+                <mat-tab>
+                  <div class="art-pad30">
+                    <h3>Login</h3>
+                    <div class="login-container">
+                        <div class="error">
+                          {{error}}
+                        </div>
+                        <mat-form-field>
+                          <input matInput placeholder="Email" [(ngModel)]="loginData.email" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input type="password" matInput placeholder="Password" [(ngModel)]="loginData.password" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                        <button class="art-mt" (click)="login(loginData)" mat-flat-button color="primary">Login</button>
+                        <button class="art-mt" mat-stroked-button (click)="wizard.selectedIndex=1" color="primary">Get Started</button>
+                    </div>
+                    
+                  </div>
+                </mat-tab>
+                <mat-tab>
+                  <div class="art-pad-lr-30-tb-10">
+                    <h3>Contact Us</h3>
+                    <div class="contact-container">
+                        <mat-form-field>
+                          <input matInput placeholder="Username">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Email">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput placeholder="Phone">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <select matNativeControl required>
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">seller</option>
+                          </select>
+                        </mat-form-field>
+
+                        <button class="art-mt" mat-flat-button color="primary">Submit</button>
+                        <button class="art-mt" mat-stroked-button (click)="wizard.selectedIndex=0" color="primary">Already Registered ?</button>
+                    </div>
+                  </div>
+                  
+                </mat-tab>
+              </mat-tab-group>
+        </mat-drawer-content>
+      </mat-drawer-container>
+</div>
+<div class="copyright"> 
+  Copyright&copy;2018 <b>ART</b>. All Rights Reserved <br> Powered by <a mat-button href="https://aeries.io">Aeries Blockchain Corporation</a>
+</div>

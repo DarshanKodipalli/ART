@@ -1,0 +1,44 @@
+<div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title">
+        <div class="docs-example-viewer-title-spacer">
+          Orders
+        </div>
+      </div>
+      <div class="docs-example-viewer-source">
+          
+          <mat-tab-group [selectedIndex]="selected.value"
+                      (selectedIndexChange)="selected.setValue($event)" (selectedTabChange)="onLinkClick($event)">
+            <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+              <!-- Contents for {{tab}} tab -->
+
+              <ng-container *ngIf="tab == 'Order List'; else elseTemplate">
+                  <app-order [changing]="changingValue"></app-order>
+              </ng-container>
+              <ng-template #elseTemplate>
+                  <ng-container *ngIf="tab == 'Order Detail'; else newOrderTemplate">
+                    <app-order-detail></app-order-detail>
+                  </ng-container>
+                  <ng-template #newOrderTemplate>
+                    <app-order-new-detail></app-order-new-detail>
+                  </ng-template>
+                  
+              </ng-template>
+              <!--
+              <button mat-raised-button
+                      class="example-add-tab-button"
+                      (click)="addTab()">
+                Add new tab
+              </button>
+              <button mat-raised-button
+                      class="example-delete-tab-button"
+                      [disabled]="tabs.length === 1"
+                      (click)="removeTab(index)">
+                Delete Tab
+            </button>
+            -->
+            </mat-tab>
+          </mat-tab-group>
+      </div>
+    </div>
+  </div>

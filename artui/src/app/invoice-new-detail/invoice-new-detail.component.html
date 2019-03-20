@@ -1,0 +1,97 @@
+<div>
+    <div class="example-viewer">
+        <div class="docs-example-viewer-wrapper">
+          <div class="docs-example-viewer-title">
+            <div class="docs-example-viewer-title-spacer">
+              Checker Approval
+            </div>
+          </div>
+          <div class="docs-example-viewer-source  art-pad10">
+            <div class="art-flex-container">
+              <div class="example-viewer art-flex-form3">
+                  <div class="docs-example-viewer-wrapper">
+                    <div class="docs-example-viewer-title">
+                      <div class="docs-example-viewer-title-spacer">
+                        Order Detail
+                      </div>
+                    </div>
+                    <div class="docs-example-viewer-source">
+                        <form>
+                            <mat-grid-list cols="1" rowHeight="100px">
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Order Number" [(ngModel)]="checkerDetail.orderNumber" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Buyer" [(ngModel)]="checkerDetail.buyerId" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Banker" [(ngModel)]="checkerDetail.bankerId" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>                              
+                            </mat-grid-list>
+                        </form>
+                    </div>
+                  </div>
+              </div>
+              <div class="example-viewer art-flex-form3" >
+                  <div class="docs-example-viewer-wrapper">
+                    <div class="docs-example-viewer-title">
+                      <div class="docs-example-viewer-title-spacer">
+                        Invoice Details
+                      </div>
+                    </div>
+                    <div class="docs-example-viewer-source" style="height: 120%">
+                        <form>
+                          <mat-grid-list cols="1" rowHeight="100px">
+                            <mat-grid-tile>
+                              <mat-form-field style="width:90%;">
+                                <input matInput placeholder="Invoice Number" [(ngModel)]="checkerDetail.invoiceNumber" [ngModelOptions]="{standalone: true}" style="color: black" disabled="true">
+                              </mat-form-field>
+                            </mat-grid-tile>                                                        
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Invoice Value" [(ngModel)]="checkerDetail.amount" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Invoice Created" [(ngModel)]="checkerDetail.createdDate" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+<!--                               <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Invoice Description" [(ngModel)]="checkerDetail.invoiceDescription" [ngModelOptions]="{standalone: true}" disabled="true">
+                                </mat-form-field>
+                            </mat-grid-tile> -->
+
+                            <mat-grid-tile>
+                              <span style="margin-left: -10%">
+                              Upload Signature:</span>
+                              <span style="margin-left: 10%">
+                                <input type='file' (change)="readURL($event);" id="files" #fileInput />
+                                <img id="uploadedSignature" style="width: 20%;height: 80%" [src]="imageSrc || 'http://placehold.it/180'" alt="your image" /></span>
+                            </mat-grid-tile>
+                          </mat-grid-list>
+                        </form>
+                    </div>
+                  </div>
+              </div>
+                        <div class="art-flex-button">
+                          <span style="float: right;">
+                            <button mat-flat-button style="color:orange">Cancel</button>
+                          </span>
+                          <span style="float: right;">
+                            <button mat-flat-button color="primary" (click)="approveInvoice(checkerDetail);">Approve Invoice</button>
+                          </span>
+                        </div>              
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  

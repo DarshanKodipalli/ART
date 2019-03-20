@@ -1,0 +1,70 @@
+    <div >
+        <div class="row">
+            <div style="margin-top: 3%;margin-left:35%">
+                    <div class="row">
+                      <div class="col">
+                        <label for="firstname"><u>User Name:</u></label>
+                          <span class="form-control" style="border: none;font-weight: bolder;">{{updateUser.username}}</span>
+                      </div>
+                      <div style="margin-left: 7%" class=" col">
+                        <label for="firstname"><u>User Email:</u></label>
+                          <span class="form-control" style="border: none;font-weight: bolder;">{{updateUser.email}}</span>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 5%">
+                      <div class="col">
+                        <label for="firstname"><u>First Name:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.firstName" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                      <div style="margin-left: 7%" class=" col">
+                        <label for="lastname"><u>Last Name:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.lastName" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 5%">
+                      <div class="col">
+                        <label for="firstname"><u>Company Name:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.companyName" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                      <div class="col" style="margin-left: 7%">
+                        <label for="lastname"><u>Company Ticker:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.companyTicker" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 5%">
+                      <div class="col">
+                        <label for="firstname"><u>Position:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.position" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                      <div class="col" style="margin-left: 7%">
+                        <label for="lastname"><u>CIN Number:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.cinNumber" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 5%">
+                      <div class="col">
+                        <label for="firstname"><u>Address Line1:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.addressLine1" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                      <div class="col" style="margin-left: 7%">
+                        <label for="lastname"><u>Address Line2:</u></label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.addressLine2" [ngModelOptions]="{standalone: true}" >
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 5%">
+                      <div class="col">
+                                <label>Company Type</label>
+                                <input type="text" class="form-control" [(ngModel)]="updateUser.companyType" [ngModelOptions]="{standalone: true}" >
+                                <small class="form-control-feedback"></small>
+                      </div>
+                  	</div>
+                    <div style="float: right;margin-top: 5%">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+	                     <button (click)="updateUserProfile(updateUser);" type="submit" class="btn btn-success" data-dismiss="modal">Update Profile</button>
+                    </div>
+            </div>
+        </div>
+    </div>

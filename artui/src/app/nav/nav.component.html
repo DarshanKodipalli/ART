@@ -1,0 +1,61 @@
+<div class="mat-elevation-z6">
+  <mat-toolbar>
+      <button mat-button class="nav-link" routerLink="/dashboard">Dashboard</button>
+
+      <button mat-button [matMenuTriggerFor]="dataexplorer">Data Explorer <mat-icon>arrow_drop_down</mat-icon></button>
+
+      <mat-menu #dataexplorer="matMenu" >
+        <span *ngIf="role=='seller';">
+          <button class="nav-link" routerLink="/order" mat-menu-item><mat-icon>description</mat-icon>Order</button>
+          <button class="nav-link" routerLink="/invoice" mat-menu-item (click)="hideMenu()"><mat-icon>receipt</mat-icon>Invoice</button>
+          <button class="nav-link" routerLink="/payment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Payment</button>
+  <!--         <button class="nav-link" routerLink="/buyerpayment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Buyer Payments</button>         -->
+          <button class="nav-link" routerLink="/bulkupload" mat-menu-item (click)="hideMenu()"><mat-icon>cloud_upload</mat-icon>Bulk Upload</button>
+        </span>
+        <span *ngIf="role=='banker';">
+  <!--         <button class="nav-link" routerLink="/order" mat-menu-item><mat-icon>description</mat-icon>Order</button> -->
+<!--           <button class="nav-link" routerLink="/invoice" mat-menu-item (click)="hideMenu()"><mat-icon>receipt</mat-icon>Invoice</button> -->
+          <button class="nav-link" routerLink="/payment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Payment</button>
+          <button class="nav-link" routerLink="/buyerpayment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Buyer Payments</button>        
+  <!--         <button class="nav-link" routerLink="/bulkupload" mat-menu-item (click)="hideMenu()"><mat-icon>cloud_upload</mat-icon>Bulk Upload</button> -->
+        </span>
+        <span *ngIf="role=='buyer'">
+          <button class="nav-link" routerLink="/order" mat-menu-item><mat-icon>description</mat-icon>Order</button>
+          <button class="nav-link" routerLink="/invoice" mat-menu-item (click)="hideMenu()"><mat-icon>receipt</mat-icon>Invoice</button>
+          <button class="nav-link" routerLink="/payment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Payment</button>
+  <!--         <button class="nav-link" routerLink="/buyerpayment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Buyer Payments</button>         -->
+          <button class="nav-link" routerLink="/bulkupload" mat-menu-item (click)="hideMenu()"><mat-icon>cloud_upload</mat-icon>Bulk Upload</button>
+        </span>
+        <span *ngIf="role=='auditor'">
+          <button class="nav-link" routerLink="/auditorOrder" mat-menu-item><mat-icon>description</mat-icon>Order</button>
+          <button class="nav-link" routerLink="/auditorInvoice" mat-menu-item (click)="hideMenu()"><mat-icon>receipt</mat-icon>Invoice</button>
+          <button class="nav-link" routerLink="/auditorPayment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Payment</button>
+<!--           <button class="nav-link" routerLink="/buyerpayment" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>Buyer Payments</button>         -->
+<!--           <button class="nav-link" routerLink="/bulkupload" mat-menu-item (click)="hideMenu()"><mat-icon>cloud_upload</mat-icon>Bulk Upload</button> -->
+        </span>
+        <span *ngIf="role=='sellerchecker'">
+          <button class="nav-link" routerLink="/approveInvoice" mat-menu-item><mat-icon>receipt</mat-icon>Approve Invoice</button>
+        </span>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="transactions">Transactions <mat-icon>arrow_drop_down</mat-icon></button>
+      <mat-menu #transactions="matMenu">
+        <button class="nav-link" routerLink="/timeline" mat-menu-item (click)="hideMenu()"><mat-icon>timeline</mat-icon>Order Timeline</button>
+        <button class="nav-link" routerLink="/invoice" mat-menu-item (click)="hideMenu()"><mat-icon>history</mat-icon>Transactions</button>
+      </mat-menu>
+    
+      <button mat-button class="nav-link" routerLink="/datamanagement" (click)="hideMenu()">Data Management </button>
+    
+      <button mat-button [matMenuTriggerFor]="reports">Reports <mat-icon>arrow_drop_down</mat-icon></button>
+      <mat-menu #reports="matMenu">
+        <button mat-menu-item>Adhoc Reports</button>
+        <button mat-menu-item>Canned Reports</button>
+      </mat-menu>
+    
+      <button mat-button [matMenuTriggerFor]="admin">Admin <mat-icon>arrow_drop_down</mat-icon></button>
+      <mat-menu #admin="matMenu">
+        <button class="nav-link" mat-menu-item (click)="showUsers('buyer')">Buyers</button>
+        <button class="nav-link" mat-menu-item (click)="showUsers('seller')">Sellers</button>
+      </mat-menu>
+    
+    </mat-toolbar>
+  </div>

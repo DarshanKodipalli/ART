@@ -1,0 +1,81 @@
+.orderdata-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.orderdata-container > * {
+  width: 100%;
+}
+
+.art-flex-container{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content: space-around;
+}
+
+.art-flex-form1{
+  width:98%;
+}
+
+.art-flex-form2{
+  width:58%;
+}
+
+.art-flex-form3{
+  width:32%;
+}
+
+.art-flex-form4{
+  width:20%;
+}
+
+.art-flex-form4 mat-form-field{
+  width: 120px;
+}
+
+.art-flex-button{
+  width:96%;
+  align-self: flex-start;
+}
+table{
+  width:100%;
+}
+
+.example-table-container {
+  position: relative;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.art-pad30{
+  padding: 30px;
+}
+
+.art-pad10{
+  padding: 10px;
+}
+
+.art-border{
+  border: 2px solid rgba(0,0,0,.03);
+}
+
+.art-flex-button  {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.art-heading{
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.art-flex-button  span{
+  padding-left: 40px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-size: 14px;
+
+}

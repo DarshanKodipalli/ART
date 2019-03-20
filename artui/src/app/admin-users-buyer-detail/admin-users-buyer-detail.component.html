@@ -1,0 +1,74 @@
+<div>
+  <div class="example-viewer">
+      <div class="docs-example-viewer-wrapper">
+        <div class="docs-example-viewer-title">
+          <div class="docs-example-viewer-title-spacer">
+            User Details
+          </div>
+        </div>
+        <div class="docs-example-viewer-source  art-pad10">
+          <div class="art-flex-container">
+            <div class="example-viewer art-flex-form3">
+                <div class="docs-example-viewer-wrapper">
+                  <div class="docs-example-viewer-title">
+                    <div class="docs-example-viewer-title-spacer">
+                          Enter Basic user details:
+                    </div>
+                  </div>
+                  <div class="docs-example-viewer-source">
+                      <form>
+                          <mat-grid-list cols="1" rowHeight="100px">
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="User Name" [(ngModel)]="signupData.username" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Email ID"  [(ngModel)]="signupData.email" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile style="width: 100%">
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Role" disabled="true" [(ngModel)]="signupData.role" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                          </mat-grid-list>
+                      <div class="art-flex-button">
+                           <button type="button" class="btn btn-primary" (click)="addUser(signupData)">Add User</button> 
+                      </div>                          
+                      </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!-- 
+<div style="margin-top: 15%;margin-left: 15%">
+  <h4><u>
+    Enter Basic user details:</u>
+  </h4>
+  <form style="margin-top: 1%;margin-left: 5%">
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-4">
+      <label for="firstname"><u>User Name:</u></label>
+      <input class="form-control"  [(ngModel)]="signupData.username" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="firstname"><u>User Email:</u></label>
+      <input class="form-control"  [(ngModel)]="signupData.email" [ngModelOptions]="{standalone: true}">
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-4">
+      <label for="userRole"><u>User Role:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{signupData.role}}</span>
+    </div>
+  </div>
+    <button type="button" class="btn btn-warning" (click)="addUser(signupData)">Add User</button>
+</form>
+</div> -->

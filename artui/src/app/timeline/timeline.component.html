@@ -1,0 +1,449 @@
+<!-- <div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title">
+        <div class="docs-example-viewer-title-spacer">
+          Order Search
+        </div>
+      </div>
+      <div class="docs-example-viewer-source">
+          
+          <form class="art-pad30">
+              <mat-grid-list cols="4" rowHeight="60px">
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="Order ID" value="">
+                        </mat-form-field>
+                  </mat-grid-tile>
+              </mat-grid-list>
+              <button mat-stroked-button color="primary">Search</button>            
+            </form>
+      </div>
+    </div>
+</div>
+<div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title" style="background: rgb(249, 250, 250)">
+        <div class="docs-example-viewer-title-spacer">
+          Order Timeline
+        </div>
+      </div>
+      <div class="docs-example-viewer-source" style="background: #e6e6e6;">
+          <mat-progress-bar *ngIf="spinner" color="accent" mode="indeterminate"></mat-progress-bar>
+          <mat-spinner *ngIf="spinner" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>
+        <section id="conference-timeline">
+          <div class="conference-center-line"></div>
+          <div class="conference-timeline-content">
+            <div class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">01</span></p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date">
+                <span class="date"><mat-icon>description</mat-icon></span>
+              </div>
+            </div>
+            <div class="timeline-article">
+              <div class="content-right-container">
+                <div class="content-right">
+                  <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date">
+                <span class="date"><mat-icon>description</mat-icon></span>
+              </div>
+            </div>
+            <div class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">01</span></p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:lightcoral;">
+                <span class="date"><mat-icon>description</mat-icon></span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+</div>
+ -->
+    <div class="container mb-5">    
+    <div class="row" style="margin-top: 2%">
+      <div class="col-12">
+       <table id="datatable-example-2" class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th  style="text-align: center;">Order Number</th>
+              <th  style="text-align: center;">Invoice Number</th>              
+              <th  style="text-align: center;">Current Status</th>
+              <th  style="text-align: center;">Next Operation</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center;font-weight: bolder;">{{orderNumber}}</td>
+                <td style="text-align: center;font-weight: bolder;">{{invoiceNumber}}</td>
+                <td style="text-align: center;font-weight: bolder;" [ngStyle]="currentStatusColor">{{currentStatus}}</td>
+                <td style="text-align: center;font-weight: bolder;">{{nextOperation}}</td>
+              </tr>
+            </tbody>
+        </table>      
+      </div>
+    </div>
+  </div>
+<!--     <div class="modal fade" id="showDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Tranaction Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-row text-left">
+                <div class="form-group col-md-8">
+                          <label>Time Stamp:</label>
+                          <span style="font-weight: bolder;color:black">
+                            {{specificDetail.timestamp}}
+                          </span>
+                </div>              
+              </div>
+              <div class="form-row text-left">
+                <div class="form-group  col-md-8">
+                          <label>Buyer:</label>
+                          <span style="font-weight: bolder;color:black">
+                            {{specificDetail.buyerId}}
+                          </span>
+                </div>
+                <div class="form-group col-md-8">
+                  <label>Seller:</label>
+                  <span style="font-weight: bolder;color:black">
+                    {{specificDetail.sellerId}}
+                  </span>
+                </div>
+                <div class="form-group col-md-8">
+                  <label> JSON Data:</label>
+                    <textarea rows="7" cols="50" name="comment" form="usrform">
+                      {{completeJson}}
+                    </textarea>
+                </div>              
+              </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>    
+  <div>
+    <h5 style="margin-left: 1%;">
+        <u>Click on the Transaction Hash to view more details.</u>
+    </h5>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-timeline">
+                <div [hidden]="!orderCreatedBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-cart-plus"></i></div>
+                    <span class="year">18 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title" style="color: ">1. Order Created</h5>
+                        <p class="description">
+                            The Purchase Order is Created by <span style="font-weight: bolder;color:black"> {{orderCreated.role}}</span> and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(orderCreated)" data-toggle="modal" data-target="#showDetails">{{orderCreated.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!orderSubmittedBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-cart-arrow-down"></i></div>
+                    <span class="year">21 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">2. Order Submitted</h5>
+                        <p class="description">
+                            The Purchase Order is Submitted by <span style="font-weight: bolder;color:black"> {{orderSubmitted.role}}</span> and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(orderSubmitted)" data-toggle="modal" data-target="#showDetails">{{orderSubmitted.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!orderApprovedBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-check-circle-o"></i></div>
+                    <span class="year">22 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">3. Order Approved</h5>
+                        <p class="description">
+                            The Purchase Order is Approved by <span style="font-weight: bolder;color:black"> {{orderApproved.role}}</span> and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(orderApproved)" data-toggle="modal" data-target="#showDetails">{{orderApproved.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!invoiceCreatedBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-file-text-o"></i></div>
+                    <span class="year">23 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">4. Invoice Created</h5>
+                        <p class="description">
+                            The Invoice is Created by <span style="font-weight: bolder;color:black"> {{invoiceCreated.role}}</span> and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(invoiceCreated)" data-toggle="modal" data-target="#showDetails">{{invoiceCreated.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!invoiceSubmittedBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-envelope-open-o"></i></div>
+                    <span class="year">23 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">5. Invoice Submitted</h5>
+                        <p class="description">
+                            The Invoice is submitted by <span style="font-weight: bolder;color:black"> {{invoiceSubmitted.role}}</span> and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(invoiceSubmitted)" data-toggle="modal" data-target="#showDetails">{{invoiceSubmitted.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!invoiceApprovedBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-check-square-o"></i></div>
+                    <span class="year">23 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">6. Invoice Approved</h5>
+                        <p class="description">
+                            The Invoice is Approved by <span style="font-weight: bolder;color:black"> {{invoiceApproved.role}}</span> and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(invoiceApproved)" data-toggle="modal" data-target="#showDetails">{{invoiceApproved.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!sellerInvoiceProposalBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-handshake-o"></i></div>
+                    <span class="year">24 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">7. Invoice Proposal</h5>
+                        <p class="description">
+                            The Invoice is Proposed by <span style="font-weight: bolder;color:black"> {{sellerInvoiceProposal.role}}</span>and is stored in the Blockchain with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(sellerInvoiceProposal)" data-toggle="modal" data-target="#showDetails">{{sellerInvoiceProposal.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+                <div [hidden]="!paymentCreatedBBBool" class="timeline">
+                    <div class="timeline-icon"><i class="fa fa-money"></i></div>
+                    <span class="year">29 November, 2018</span>
+                    <div class="timeline-content">
+                        <h5 class="title">8. Payment Created</h5>
+                        <p class="description">
+                            The Payment is Created by <span style="font-weight: bolder;color:black"> {{paymentCreatedBB.role}}</span> with the 
+                            Transaction hash: <a style="color: blue" (click)="getDetails(paymentCreatedBB)" data-toggle="modal" data-target="#showDetails">{{paymentCreatedBB.dispTransactionId}}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div> -->
+<div style="margin-top: -3%" class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title" style="background: rgb(249, 250, 250)">
+        <div class="docs-example-viewer-title-spacer">
+          Timeline
+        </div>
+      </div>
+      <div class="docs-example-viewer-source" style="background: #e6e6e6;">
+          <mat-progress-bar *ngIf="spinner" color="accent" mode="indeterminate"></mat-progress-bar>
+          <mat-spinner *ngIf="spinner" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>
+        <!-- Vertical Timeline -->
+        <section id="conference-timeline">
+          <!--<div class="timeline-start">Start</div>-->
+          <div class="conference-center-line"></div>
+          <div class="conference-timeline-content">
+            <!-- Article -->
+            <div [hidden]="!orderCreatedBool" class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p>
+                    The Purchase Order is <span style="font-weight: bolder;color:black"> Created </span> by <span style="font-weight: bolder;color:black"> {{orderCreated.role}}</span> and is stored in the Blockchain with the 
+                    Transaction hash: <a style="color: blue" (click)="getDetails(orderCreated)" data-toggle="modal" data-target="#showDetails">{{orderCreated.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:orange;">
+                <span class="date"><mat-icon>add_shopping_cart</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+            <!-- // Article -->
+            
+            <!-- Article -->
+            <div [hidden]="!orderSubmittedBool" class="timeline-article">
+              <div class="content-right-container">
+                <div class="content-right">
+                  <p class="description">
+                      The Purchase Order is <span style="font-weight: bolder;color:black"> Submitted </span> by <span style="font-weight: bolder;color:black"> {{orderSubmitted.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(orderSubmitted)" data-toggle="modal" data-target="#showDetails">{{orderSubmitted.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:green;">
+                <span class="date"><mat-icon>shopping_cart</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+            <!-- // Article -->
+            
+            <!-- Article -->
+            <div [hidden]="!orderApprovedBool" class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p class="description">
+                      The Purchase Order is <span style="font-weight: bolder;color:black"> Approved </span> by <span style="font-weight: bolder;color:black"> {{orderApproved.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(orderApproved)" data-toggle="modal" data-target="#showDetails">{{orderApproved.dispTransactionId}}</a>
+                  </p>                
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:yellow;">
+                <span class="date"><mat-icon>check_circle_outline</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <!-- // Article -->
+            <div [hidden]="!invoiceCreatedBool" class="timeline-article">
+              <div class="content-right-container">
+                <div class="content-right">
+                  <p class="description">
+                      The Invoice is <span style="font-weight: bolder;color:black"> Created </span> by <span style="font-weight: bolder;color:black"> {{invoiceCreated.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(invoiceCreated)" data-toggle="modal" data-target="#showDetails">{{invoiceCreated.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:blue;">
+                <span class="date"><mat-icon>insert_drive_file</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!invoiceSubmittedBool" class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p class="description">
+                      The Invoice is <span style="font-weight: bolder;color:black"> submitted </span> by <span style="font-weight: bolder;color:black"> {{invoiceSubmitted.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(invoiceSubmitted)" data-toggle="modal" data-target="#showDetails">{{invoiceSubmitted.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:lightcoral;">
+                <span class="date"><mat-icon>mail</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!invoiceApprovedBool" class="timeline-article">
+              <div class="content-right-container">
+                <div class="content-right">
+                  <p class="description">
+                      The Invoice is <span style="font-weight: bolder;color:black"> Approved </span> by <span style="font-weight: bolder;color:black"> {{invoiceApproved.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(invoiceApproved)" data-toggle="modal" data-target="#showDetails">{{invoiceApproved.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:cyan;">
+                <span class="date"><mat-icon>done</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!sellerInvoiceAcceptBool" class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p class="description">
+                      The Invoice is <span style="font-weight: bolder;color:black"> Accepted </span> by <span style="font-weight: bolder;color:black"> {{sellerInvoiceAccept.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(sellerInvoiceAccept)" data-toggle="modal" data-target="#showDetails">{{sellerInvoiceAccept.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:indigo;">
+                <span class="date"><mat-icon>near_me</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!sellerInvoiceProposalBool" class="timeline-article">
+              <div class="content-right-container">
+                <div class="content-right">
+                  <p class="description">
+                      The Invoice is <span style="font-weight: bolder;color:black"> Proposed </span> by <span style="font-weight: bolder;color:black"> {{sellerInvoiceProposal.role}}</span> and is stored in the Blockchain with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(sellerInvoiceProposal)" data-toggle="modal" data-target="#showDetails">{{sellerInvoiceProposal.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:red;">
+                <span class="date"><mat-icon>input</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!paymentCreatedBBBool" class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p class="description">
+                      The Payment is <span style="font-weight: bolder;color:black"> Created </span> by <span style="font-weight: bolder;color:black"> {{paymentCreatedBB.role}}</span> with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(paymentCreatedBB)" data-toggle="modal" data-target="#showDetails">{{paymentCreatedBB.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:blue;">
+                <span class="date"><mat-icon>credit_card</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!paymentAcknowledgedBool" class="timeline-article">
+              <div class="content-right-container">
+                <div class="content-right">
+                  <p class="description">
+                      The Payment is <span style="font-weight: bolder;color:black"> Acknowledged </span> by <span style="font-weight: bolder;color:black"> {{paymentAcknowledged.role}}</span> with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(paymentAcknowledged)" data-toggle="modal" data-target="#showDetails">{{paymentAcknowledged.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:green;">
+                <span class="date"><mat-icon>done_outline</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>
+
+            <div [hidden]="!buyerPayentBankerBool" class="timeline-article">
+              <div class="content-left-container">
+                <div class="content-left">
+                  <p class="description">
+                      The Payment is <span style="font-weight: bolder;color:black"> Made </span> by <span style="font-weight: bolder;color:black"> {{buyerPayentBanker.role}}</span> with the 
+                      Transaction hash: <a style="color: blue" (click)="getDetails(buyerPayentBanker)" data-toggle="modal" data-target="#showDetails">{{buyerPayentBanker.dispTransactionId}}</a>
+                  </p>
+                </div>
+                <span class="timeline-author">{{actualDate}}</span>
+              </div>
+              <div class="meta-date" style="background-color:yellow;">
+                <span class="date"><mat-icon>credit_card</mat-icon></span>
+                <!--<span class="month">APR</span>-->
+              </div>
+            </div>            
+          </div>
+
+          <!--<div class="timeline-end">End</div>-->
+        </section>
+        <!-- // Vertical Timeline -->
+      </div>
+    </div>
+</div>
+

@@ -1,0 +1,50 @@
+<div>
+  <div class="example-viewer">
+      <div class="docs-example-viewer-wrapper">
+        <div class="docs-example-viewer-title">
+          <div class="docs-example-viewer-title-spacer">
+            User Details
+          </div>
+        </div>
+        <div class="docs-example-viewer-source  art-pad10">
+          <div class="art-flex-container">
+            <div class="example-viewer art-flex-form3">
+                <div class="docs-example-viewer-wrapper">
+                  <div class="docs-example-viewer-title">
+                    <div class="docs-example-viewer-title-spacer">
+                          Enter Basic user details:
+                    </div>
+                  </div>
+                  <div class="docs-example-viewer-source">
+                      <form>
+                          <mat-grid-list cols="1" rowHeight="100px">
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="User Name" [(ngModel)]="signupData.username" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Email ID"  [(ngModel)]="signupData.email" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <mat-select [(ngModel)]='optionSelected' [ngModelOptions]="{standalone: true}" placeholder="Select">
+                                    <mat-option *ngFor='let option of options' [value]="option">{{option}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                          </mat-grid-list>
+                      <div class="art-flex-button">
+                           <button type="button" class="btn btn-primary" (click)="addUser(signupData,optionSelected)">Add User</button> 
+                      </div>                          
+                      </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

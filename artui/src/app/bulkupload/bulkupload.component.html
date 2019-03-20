@@ -1,0 +1,57 @@
+  <div style="margin-left: 5%">
+
+      <div class="row">
+
+          <div style="margin-top: 7%;float: left;">
+                  <div class="form-row">
+                    <div>
+                      <p style="font-weight: bolder;">
+                        <u>Bulk Upload Orders</u> 
+                      </p>
+                    </div>
+                    <div class="form-group custom-file">
+                      <form>
+                        <div class="row">
+                          <div class="col">
+                            <label></label>
+                              <bulk-upload-orders #fu (change)="fu.upload()"></bulk-upload-orders>                                  
+                          </div>                          
+                          <div class="col">
+                            <button type="submit" class="btn btn-warning" (click)="addOrders()" >Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div style="margin-top: 5%">
+                    <p style="font-weight: bolder;">
+                      <u>Uploaded File Status:</u>
+                    </p>
+                  </div>   
+                  <div class="row">
+                    <hr style="width: 5%; border: black">
+                    <button type="submit" class="btn btn-success" (click)="refreshFeed()" style="float: right;color: black">Refresh <a style="margin-left: 2%;color: black" class="fa fa-refresh" aria-hidden="true"></a></button> 
+                    <table style="width: 100em" class="table table-lg table-hover table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="text-align: center;font-weight: bolder;">ID</th>
+                            <th scope="col" style="text-align: center;font-weight: bolder;">Uploaded On</th>
+                            <th scope="col" style="text-align: center;font-weight: bolder;">Uploaded At</th>                          
+                            <th scope="col" style="text-align: center;font-weight: bolder;">File Name</th>
+                            <th scope="col" style="text-align: center;font-weight: bolder;">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor = "let i of uploadProgress; let row_number = index">
+                            <th scope="row" style="text-align: center;">{{row_number+1}}</th>
+                            <td style="text-align: center;">{{i.uploadedDate}}</td>
+                            <td style="text-align: center;">{{i.uploadedTime}}</td>
+                            <td style="text-align: center;">{{i.fileName}}</td>
+                            <td style="text-align: center;">{{i.fileStatus}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                 </div>
+          </div>
+      </div>
+  </div>

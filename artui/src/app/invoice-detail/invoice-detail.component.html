@@ -1,0 +1,94 @@
+<div>
+    <div class="example-viewer">
+        <div class="docs-example-viewer-wrapper">
+          <div class="docs-example-viewer-title">
+            <div class="docs-example-viewer-title-spacer">
+              {{title}}
+            </div>
+          </div>
+          <div class="docs-example-viewer-source  art-pad10">
+            <div class="art-flex-container">
+              <div class="example-viewer art-flex-form3">
+                  <div class="docs-example-viewer-wrapper">
+                    <div class="docs-example-viewer-title">
+                      <div class="docs-example-viewer-title-spacer">
+                        Order Details
+                      </div>
+                    </div>
+                    <div class="docs-example-viewer-source">
+                        <form>
+                            <mat-grid-list cols="1" rowHeight="100px">
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Order Number" [(ngModel)]="invoiceData.orderNumber" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Invoice Value" [(ngModel)]="invoiceData.amount" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Buyer" [(ngModel)]="invoiceData.buyerId" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Banker" [(ngModel)]="invoiceData.bankerId" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>                              
+                            </mat-grid-list>
+                        </form>
+                    </div>
+                  </div>
+              </div>
+              <div class="example-viewer art-flex-form3">
+                  <div class="docs-example-viewer-wrapper">
+                    <div class="docs-example-viewer-title">
+                      <div class="docs-example-viewer-title-spacer">
+                        Invoice Details
+                      </div>
+                    </div>
+                    <div class="docs-example-viewer-source">
+                        <form>
+                          <mat-grid-list cols="1" rowHeight="100px">
+                            <mat-grid-tile>
+                              <mat-form-field style="width:90%;">
+                                <input matInput placeholder="Invoice Number" [(ngModel)]="invoiceData.invoiceNumber" [ngModelOptions]="{standalone: true}" style="color: black" disabled="true">
+                              </mat-form-field>
+                            </mat-grid-tile>                                                        
+                              <mat-grid-tile>
+                                  <mat-form-field style="width:90%;">
+                                    <input matInput placeholder="Invoice Created" [(ngModel)]="invoiceData.createdDate" [ngModelOptions]="{standalone: true}" style="color: black"  disabled="true">
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Invoice Description" [(ngModel)]="invoiceData.invoiceDescription" [ngModelOptions]="{standalone: true}" >
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                              <div style="margin-top: 6%;margin-left: 18%" class="custom-file">
+                                  <file-upload-invoice #fu (change)="fu.upload()" [multiple]="true"></file-upload-invoice>    
+                              </div>
+                            </mat-grid-tile>
+                          </mat-grid-list>
+                        </form>
+                    </div>
+                  </div>
+              </div>
+                        <div class="art-flex-button">
+                          <span style="float: right;">
+                            <button mat-flat-button style="color:orange">Cancel</button>
+                          </span>
+                          <span style="float: right;">
+                            <button mat-flat-button color="primary" (click)="sendInvoiceDirectly(invoiceData);">Send Invoice</button>
+                          </span>
+                        </div>              
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  

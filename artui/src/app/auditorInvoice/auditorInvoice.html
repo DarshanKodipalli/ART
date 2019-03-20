@@ -1,0 +1,196 @@
+<div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title">
+        <div class="docs-example-viewer-title-spacer">
+          Invoice Search
+        </div>
+      </div>
+      <div class="docs-example-viewer-source">
+          
+          <form class="art-pad30">
+              <mat-grid-list cols="5" rowHeight="100px">
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="Invoice ID" value="">
+                        </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="Order ID" value="">
+                        </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="Seller ID" value="">
+                        </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput [matDatepicker]="picker" placeholder="Created Date">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field style="width:90%;">
+                      <mat-label>Status</mat-label>
+                      <select matNativeControl required>
+                        <option label=""></option>
+                        <option value="saab">Invoice Created</option>
+                        <option value="mercedes">Invoice Updated</option>
+                        <option value="audi">Invoice Submitted</option>
+                        <option value="audi">Invoice Cancelled</option>
+                      </select>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>  
+                <button mat-stroked-button color="primary">Search</button>            
+            </form>
+      </div>
+    </div>
+</div>
+<div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title">
+        <div class="docs-example-viewer-title-spacer">
+          Auditor Invoice Grid
+        </div>
+      </div>
+      <div class="docs-example-viewer-source">
+          <mat-progress-bar *ngIf="loadGridSpinner" color="accent" mode="indeterminate"></mat-progress-bar>
+          <mat-spinner *ngIf="loadGridSpinner" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>
+
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+            
+              <!-- Invoice Number Column -->
+              <ng-container matColumnDef="invoiceNumber">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Number </th>
+                  <td mat-cell *matCellDef="let element"><a (click)="viewSignedInvoice(element.invoiceNumber)"></a> {{element.invoiceNumber}} </td>
+                </ng-container>
+              
+              <!-- Order Number Column -->
+              <ng-container matColumnDef="orderNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
+              </ng-container>
+            
+              <!-- Amount Column -->
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+              </ng-container>
+            
+              <!-- Seller ID Column -->
+              <ng-container matColumnDef="sellerId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.buyerId}} </td>
+              </ng-container>
+            
+              <!-- Banker ID Column -->
+              <ng-container matColumnDef="bankerId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Banker ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.bankerId}} </td>
+              </ng-container>
+
+              <!-- Created Date Column -->
+              <ng-container matColumnDef="createdDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.statusMessage}} </td>
+              </ng-container>
+
+              <!-- transaction -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="selection.toggle(row)" (dblclick)="addTab(row)">
+              </tr>
+            </table>
+            <!--(click)="selection.toggle(row)"-->
+          <mat-paginator class="art-boxshadow" [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+          <mat-toolbar style="position:relative;z-index:0;width:60%;height:56px;margin-top:-56px;margin-left:10px;background-color:#fff;">
+          
+              <button mat-button [matMenuTriggerFor]="actions">Actions<mat-icon class="example-icon">arrow_drop_down</mat-icon></button>
+
+              <mat-menu #actions="matMenu">
+                <button mat-menu-item (click)="createInvoiceDirectly()">Create Invoice</button>
+                <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
+                <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
+              </mat-menu>
+
+              <mat-menu #vertebrates="matMenu">
+                <button mat-menu-item [matMenuTriggerFor]="fish">Fishes</button>
+                <button mat-menu-item [matMenuTriggerFor]="amphibians">Amphibians</button>
+                <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>
+                <button mat-menu-item>Birds</button>
+                <button mat-menu-item>Mammals</button>
+              </mat-menu>
+
+              <mat-menu #invertebrates="matMenu">
+                <button mat-menu-item>Insects</button>
+                <button mat-menu-item>Molluscs</button>
+                <button mat-menu-item>Crustaceans</button>
+                <button mat-menu-item>Corals</button>
+                <button mat-menu-item>Arachnids</button>
+                <button mat-menu-item>Velvet worms</button>
+                <button mat-menu-item>Horseshoe crabs</button>
+              </mat-menu>
+
+              <mat-menu #fish="matMenu">
+                <button mat-menu-item>Baikal oilfish</button>
+                <button mat-menu-item>Bala shark</button>
+                <button mat-menu-item>Ballan wrasse</button>
+                <button mat-menu-item>Bamboo shark</button>
+                <button mat-menu-item>Banded killifish</button>
+              </mat-menu>
+
+              <mat-menu #amphibians="matMenu">
+                <button mat-menu-item>Sonoran desert toad</button>
+                <button mat-menu-item>Western toad</button>
+                <button mat-menu-item>Arroyo toad</button>
+                <button mat-menu-item>Yosemite toad</button>
+              </mat-menu>
+
+              <mat-menu #reptiles="matMenu">
+                <button mat-menu-item>Banded Day Gecko</button>
+                <button mat-menu-item>Banded Gila Monster</button>
+                <button mat-menu-item>Black Tree Monitor</button>
+                <button mat-menu-item>Blue Spiny Lizard</button>
+                <button mat-menu-item disabled>Velociraptor</button>
+              </mat-menu>
+              <button mat-button (click)="reloadGrid()">
+                <mat-icon class="example-icon">refresh</mat-icon>
+              </button>
+              
+            </mat-toolbar>
+      </div>
+    </div>
+</div>
+
+<!--
+  https://blog.angular-university.io/angular-material-data-table/
+  https://github.com/angular/material2/tree/master/src/material-examples/paginator-configurable
+-->

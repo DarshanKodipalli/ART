@@ -1,0 +1,81 @@
+<div style="margin-top: 2%;margin-left: 13%">
+  <h4><u>
+    Enter the Credit Limit:</u>
+  </h4>
+  <form style="margin-top: 1%;margin-left: 7%">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>First Name:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.firstName}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname"><u>Last Name:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.lastName}}</span>
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>User Name:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.username}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname"><u>Email ID:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.email}}</span>
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>Company Name:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.companyName}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname"><u>CIN Number:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.cinNumber}}</span>
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>Company Ticker:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.companyTicker}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname"><u>Role:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.role}}</span>
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>Position:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.position}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname"><u>Company Type:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.companyType}}</span>
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>Address Line 1:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.addressLine1}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastname"><u>Address Line 2:</u></label>
+      <span class="form-control" style="border: none;font-weight: bolder;">{{userData.addressLine2}}</span>
+    </div>
+  </div>
+  <div class="form-row" style="margin-top: 1%">
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>Credit Limit:</u></label>
+      <input class="form-control"  [(ngModel)]="userData.limit" [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="firstname"><u>Select Checker:</u></label>
+          <select class='select-option' required [(ngModel)]='optionSelected' [ngModelOptions]="{standalone: true}" (OnChange)='onOptionsSelected($event)'>
+              <option class='option' *ngFor='let option of userData.options' [value]="option">{{option}}</option>
+          </select>
+    </div>
+  </div>
+    <button type="button" class="btn btn-warning" (click)="setCreditLimit(userData,optionSelected)">Set and Approve</button>
+  </form>
+</div>
