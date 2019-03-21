@@ -21,8 +21,7 @@
                 "orderer.aeries.io"
             ],
             "peers": {
-                "peer0.org1.aeries.io": {},
-                "peer1.org1.aeries.io": {}
+                "peer0.org1.aeries.io": {}
             }
         }
     },
@@ -30,8 +29,7 @@
         "Org1": {
             "mspid": "Org1MSP",
             "peers": [
-                "peer0.org1.aeries.io",
-                "peer1.org1.aeries.io"
+                "peer0.org1.aeries.io"
             ],
             "certificateAuthorities": [
                 "ca.org1.aeries.io"
@@ -47,10 +45,6 @@
         "peer0.org1.aeries.io": {
             "url": "grpc://localhost:7051",
             "eventUrl": "grpc://localhost:7052"
-        },
-        "peer1.org1.aeries.io": {
-            "url": "grpc://localhost:7053",
-            "eventUrl": "grpc://localhost:7054"
         }
     },
     "certificateAuthorities": {
